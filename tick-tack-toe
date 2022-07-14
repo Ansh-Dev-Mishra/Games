@@ -1,0 +1,278 @@
+#include<iostream>
+#include<conio.h>
+using namespace std;
+#include<vector>
+void draw(vector<vector<int>>&  matrix)
+{
+    for(int i = 0; i < 29; i++)
+    {
+        for(int j = 0; j < 41; j++)
+        {
+            if(j == 13 || j == 27 || i == 9 || i == 19)
+            cout<<"o";
+            else
+            {
+                bool sp = 1;
+                // cross 1
+                if(matrix[0][0] == 1 && (i==j || i + j == 8) && i < 9)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // cross 4
+                if(matrix[1][0] == 1 && (i==j+10 || i + j == 18) && i >8 && i < 19)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // cross 7
+                if(matrix[2][0] == 1 && (i==j+20 || i + j == 28) && i >18 && i < 29)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // cross 2
+                if(matrix[0][1] == 1 && (i+15==j || i + j == 23) && i < 9)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // cross 5
+                if(matrix[1][1] == 1 && (i+5==j || i + j == 33) && i >8 && i < 19)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // cross 8
+                if(matrix[2][1] == 1 && (i==j+5 || i + j == 43) && i >18 && i < 29)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // cross 3
+                if(matrix[0][2] == 1 && (i+30==j || i + j == 38) && i < 9)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // cross 6
+                if(matrix[1][2] == 1 && (i+20==j || i + j == 48) && i >8 && i < 19)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // cross 9
+                if(matrix[2][2] == 1 && (i+10==j || i + j == 58) && i >18 && i < 29)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // square 1
+                if(matrix[0][0] == 0 &&(j == 2 || j == 10 || i == 1 || i == 7) && i>0 && i<8 && j > 1 && j < 11)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // square 2
+                if(matrix[0][1] == 0 &&(j == 16 || j == 24 || i == 1 || i == 7) && i>0 && i<8 && j > 15 && j < 25)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // square 3
+                if(matrix[0][2] == 0 &&(j == 30 || j == 38 || i == 1 || i == 7) && i>0 && i<8 && j > 29 && j < 39)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // square 4
+                if(matrix[1][0] == 0 &&(j == 2 || j == 10 || i == 11 || i == 17) && i>10 && i<18 && j > 1 && j < 11)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // square 5
+                if(matrix[1][1] == 0 &&(j == 16 || j == 24 || i == 11 || i == 17) && i>10 && i<18 && j > 15 && j < 25)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // square 6
+                if(matrix[1][2] == 0 && (j == 30 || j == 38 || i == 11 || i == 17) && i>10 && i<18 && j > 29 && j < 39)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // square 7
+                if(matrix[2][0] == 0 &&(j == 2 || j == 10 || i == 21 || i == 27) && i>20 && i<28 && j > 1 && j < 11)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // square 8
+                if(matrix[2][1] == 0 &&(j == 16 || j == 24 || i == 21 || i == 27) && i>20 && i<28 && j > 15 && j < 25)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                // square 9
+                if(matrix[2][2] == 0 &&(j == 30 || j == 38 || i == 21 || i == 27) && i>20 && i<28 && j > 29 && j < 39)
+                {
+                    cout<<"*";
+                    sp = 0;
+                }
+                if(sp == 1)
+                    cout<<" ";
+            }
+        }
+        cout<<endl;
+    }
+}
+void check(vector<vector<int>>& m,string& p1,string& p2)
+{
+    for(int i = 0; i < 3; i++)
+    if(m[i][0] == m[i][1] && m[i][1] == m[i][2])
+       {
+           if(m[i][0] == 1)
+           cout<<"\n\n\n\t\t\t\t\t\t"<<p2<<" Won";
+           else
+            cout<<"\n\n\n\t\t\t\t\t\t"<<p1<<" Won";
+           exit(1);
+       }
+    for(int i = 0; i < 3; i++)
+    if(m[0][i] == m[1][i] && m[1][i] == m[2][i])
+       {
+           if(m[0][i] == 1)
+           cout<<"\n\n\n\t\t\t\t\t\t"<<p2<<" Won";
+           else
+            cout<<"\n\n\n\t\t\t\t\t\t"<<p1<<" Won";
+           exit(1);
+       }
+    if(m[0][0] == m[1][1] && m[1][1] == m[2][2])
+    {
+        if(m[0][0] == 1)
+           cout<<"\n\n\n\t\t\t\t\t\t"<<p2<<" Won";
+           else
+            cout<<"\n\n\n\t\t\t\t\t\t"<<p1<<" Won";
+           exit(1);
+    }
+    if(m[0][2] == m[1][1] && m[1][1] == m[2][0])
+    {
+        if(m[0][2] == 1)
+           cout<<"\n\n\n\t\t\t\t\t\t"<<p2<<" Won";
+           else
+            cout<<"\n\n\n\t\t\t\t\t\t"<<p1<<" Won";
+           exit(1);
+    }
+}
+void display(vector<vector<int>>& m)
+{
+    for(int i = 0; i < 3; i++)
+    {
+        for(int j = 0; j < 3; j++)
+        {
+            cout<<m[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+int main()
+{
+    vector<vector<int>> m{{11,12,13},{14,15,16},{17,18,19}};//(3,vector<int>(3,3));
+    string p1, p2;
+    cout<<"\t\t\t\t\t\t\tWELCOME TO THE GAME TICK TACK TOE\n";
+    draw(m);
+    cout<<"\n\n\n\n\nInstructions:   On the screen you can see 9 blocks. ";
+    cout<<"Assume that the blocks are numbered 1 to 9 from left to right starting from row 1 to row 3. ";
+    cout<<"\n\tPlayer 1 will play with zeros and player 2 will play with crosses. First one to create a straight sequence ";
+    cout<<"of 3 will win.\n\n\n\npress any key to continue:    ";
+
+    getch();
+    cout<<"\nEnter the name of player 1:  ";
+    cin>>p1;
+    cout<<"Enter the name of player 2:  ";
+    cin>>p2;
+    int turn = 0;
+    int n = 9;
+    while(n>=0)
+    {
+        system("CLS");
+        int x;
+        draw(m);
+        cout<<endl;
+       // display(m);
+        check(m,p1,p2);
+        if(n==0)
+            break;
+        if(turn == 0)
+        cout<<p1<<"'s turn";
+        else
+            cout<<p2<<"'s turn";
+        while(1)
+        {
+            x = _getch() - '1';
+        if(m[x/3][x%3] == 1 || m[x/3][x%3] == 0)
+        {
+            cout<<"\n!!!Already filled!!!\n Enter another block no.:    ";
+            continue;
+        }
+        break;
+        }
+        n--;
+        if(turn == 0)
+        {
+            turn = 1;
+            switch(x+1)
+        {
+                    case 1: m[x/3][x%3] = 0;
+                    break;
+                    case 2: m[x/3][x%3] = 0;
+                    break;
+                    case 3: m[x/3][x%3] = 0;
+                    break;
+                    case 4: m[x/3][x%3] = 0;
+                    break;
+                    case 5: m[x/3][x%3] = 0;
+                    break;
+                    case 6: m[x/3][x%3] = 0;
+                    break;
+                    case 7: m[x/3][x%3] = 0;
+                    break;
+                    case 8: m[x/3][x%3] = 0;
+                    break;
+                    case 9: m[x/3][x%3] = 0;
+                    break;
+            }
+        }
+        else
+        {
+            turn = 0;
+        switch(x+1)
+        {
+                    case 1: m[x/3][x%3] = 1;
+                    break;
+                    case 2: m[x/3][x%3] = 1;
+                    break;
+                    case 3: m[x/3][x%3] =1;
+                    break;
+                    case 4: m[x/3][x%3] = 1;
+                    break;
+                    case 5: m[x/3][x%3] = 1;
+                    break;
+                    case 6: m[x/3][x%3] = 1;
+                    break;
+                    case 7: m[x/3][x%3] = 1;
+                    break;
+                    case 8: m[x/3][x%3] = 1;
+                    break;
+                    case 9: m[x/3][x%3] = 1;
+                    break;
+        }
+
+        }
+
+
+        }
+        cout<<"\t\t\t\t\tDraw";
+
+}
