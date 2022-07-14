@@ -1,0 +1,247 @@
+#include<iostream>
+#include<conio.h>
+using namespace std;
+#include<vector>
+void check_fun(vector<vector<int>>& game);
+void up_fun(vector<vector<int>>& game,int& x,int& y)
+{
+    if(x!= 0)
+    {
+        int temp = game[x-1][y];
+        game[x-1][y] = game[x][y];
+        game[x][y] = temp;
+        x--;
+    }
+}
+void dn_fun(vector<vector<int>>& game,int& x,int& y)
+{
+    if( x!= game.size() - 1)
+    {
+        int temp = game[x+1][y];
+        game[x+1][y] = game[x][y];
+        game[x][y] = temp;
+        x++;
+    }
+}
+void lft_fun(vector<vector<int>>& game,int& x,int& y)
+{
+    if( y!= 0)
+    {
+        int temp = game[x][y - 1];
+        game[x][y - 1] = game[x][y];
+        game[x][y] = temp;
+        y--;
+
+    }
+}
+void rgt_fun(vector<vector<int>>& game,int& x,int& y)
+{
+    if( y!= game.size() - 1)
+    {
+        int temp = game[x][y + 1];
+        game[x][y + 1] = game[x][y];
+        game[x][y] = temp;
+        y++;
+    }
+}
+void check_fun(vector<vector<int>>& game)
+{
+    int n = 1;
+    int  row = game.size();
+    for(int i = 0; i < row; i++)
+        for(int j = 0; j < row; j++)
+    {
+        if( j == row - 1 && i == row - 1)
+        {
+             cout<<"\n\n\n\t\t\tYou win.";
+                exit(1);
+        }
+        else if(game[i][j] != n)
+            {
+                return;
+            }
+        else
+             n++;
+
+    }
+}
+void setupboard(vector<vector<int>>& game,int& x, int& y)
+{
+    int n = 1;
+     for(int i = 0; i < game.size(); i++)
+        for(int j = 0; j < game.size(); j++)
+           {
+                game[i][j] = n;
+                n++;
+            }
+        x = y = game.size() - 1;
+        game[x][y] = 0;
+        if(game.size() == 2)
+        {
+        while(1)
+        {
+            for(int i = 0; i < 20 ; i++)
+            {
+               n = rand();
+               switch(n%4 + 1)
+               {
+                 case 1: up_fun(game,x,y);break;
+                 case 2: dn_fun(game,x,y);break;
+                 case 3: lft_fun(game,x,y);break;
+                 case 4: rgt_fun(game,x,y);break;
+               }
+             }
+           if(!(game[0][0] == 1 && game[0][1] == 2 &&game[1][0] == 3))
+           break;
+        }
+        }
+        else
+    for(int i = 0; i < 100000; i++)
+    {
+        switch(rand()%4 + 1)
+        {
+            case 1: up_fun(game,x,y);break;
+            case 2: dn_fun(game,x,y);break;
+            case 3: lft_fun(game,x,y);break;
+            case 4: rgt_fun(game,x,y);break;
+        }
+    }
+    cout<<endl<<"board set";
+}
+int main()
+{
+    cout<<"\t\t\t\t\tWELCOME TO THE GAME SCRAMBLED SQUARES\n\n\n\n\n";
+    cout<<"Instructions: \n\nIn this game, you will see a board of numbers on the screen. Size of board will depend on";
+    cout<<" the level entered by you. Your board will be of size level*level";
+    cout<<"\n\nNumbers will be in the range of 1 to level*level - 1. Your target is to arrange numbers in ";
+    cout<<"ascending order starting from the first row. For example:\n\n\n\n\t\t\t 1\t2\t3\n\t\t\t4\t5\t6\n\t\t\t7\t8\t[]\n\nyour";
+    cout<<" final board should be like this. \n For this you have a control on [] which you can move up, down, left and right";
+    cout<<" according to the keys which will be of your own choice.";
+    cout<<"\n\n\n\n\nenter any key to continue  ";
+      char x;
+    // to stop the screen
+
+    getch();
+    system("CLS");
+    // setting up,down,left,right keys
+     char upk;
+     char dnk;
+     char lftk;
+     char rgtk;
+     //char sub;
+     cout<<"Set your own keys for the movement of 0\n\n";
+    while(1)
+    {
+
+    cout<<"Set the key for upward movement:   ";
+
+    upk = _getch();
+    cout<<upk<<endl;
+    cout<<"Set the key for downward movement:   ";
+
+    dnk = _getch();
+    cout<<dnk<<endl;
+    cout<<"Set the key for left movement:   ";
+
+    lftk = _getch();
+    cout<<lftk<<endl;
+    cout<<"Set the key for right movement:   ";
+
+    rgtk = _getch();
+    cout<<rgtk<<endl;
+
+    if(upk == lftk || upk == rgtk || upk == dnk || lftk == rgtk || lftk == dnk || dnk == rgtk)
+    {
+        cout<<"Some of the entered keys are same\n\n\n\n";
+        continue;
+    }
+
+    cout<<endl<<"\tYour up key = "<<upk;
+    cout<<endl<<"\tYour down key = "<<dnk;
+    cout<<endl<<"\tYour left key = "<<lftk;
+    cout<<endl<<"\tYour right key = "<<rgtk;
+
+    // to stop the screen
+
+    cout<<"\n\n\n\n\nenter any key to continue  ";
+    getch();
+    system("CLS");
+    break;
+    }
+int lvl;
+while(1)
+{
+    cout<<"Enter level(2 to 8):   ";
+    lvl = _getch() - '0';
+    cout<<"\n\nLevel selected =     "<<lvl;
+    if(lvl > 8 || lvl < 2)
+    {
+        system("CLS");
+        cout<<"\n Enter a level in the given range for a proper board\n\n";
+        continue;
+    }
+    else
+        break;
+
+}
+
+    // to stop the screen
+
+    cout<<"\n\n\n\n\nenter any key to continue  ";
+    getch();
+    system("CLS");
+
+    vector<vector<int>> game(lvl,vector<int>(lvl,1));
+    // h,k is the current position of empty slot in your matrix
+    int h=lvl -1,k = lvl -1;
+
+    // function to setup game initially
+
+    setupboard(game,h,k);
+
+    cout<<"\n\tGame started.";
+
+    //game started
+
+    while(1)
+    {
+        for(int i = 0; i < lvl ; i++)
+        {
+            cout<<endl;
+            for(int j = 0; j < lvl; j++)
+            {
+                if(i != h || j != k)
+                cout<<game[i][j]<<"\t\t";
+                else
+                    cout<<"[]\t\t";
+            }
+        }
+        check_fun(game);
+
+        char ch;
+        cout<<"\nEnter move:  ";
+        ch = _getch();
+        int y;
+        if(ch == upk)
+            y = 1;
+        else if(ch == dnk)
+            y = 2;
+        else if( ch == lftk)
+            y = 3;
+        else if ( ch == rgtk)
+            y = 4;
+       else
+            y = 5;
+        switch(y)
+        {
+            case 1: up_fun(game,h,k);break;
+            case 2: dn_fun(game,h,k);break;
+            case 3: lft_fun(game,h,k);break;
+            case 4: rgt_fun(game,h,k);break;
+            default: cout<<"Invalid key entered. enter any key to continue:    ";
+            getch();
+        }
+        system("CLS");
+
+    }
+}
